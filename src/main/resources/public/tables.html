@@ -1,0 +1,813 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="icon"
+          href="http://files.softicons.com/download/web-icons/awt-travel-blue-icons-by-awt-media/png/200x200/AWT-Plane.png">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Інформаційна система аеропорту</title>
+</head>
+<body ng-app="airport">
+
+
+<div ng-controller="AppCtrl">
+    <!-- Навигация -->
+
+    <ul class="nav nav-tabs" role="tablist">
+        <li><a href="worker.html">Працівник&nbsp;&nbsp;</a></li>
+        <li><a href="department.html">Відділ&nbsp;&nbsp;</a></li>
+        <li><a href="medicalExam.html">Медичне обстеження&nbsp;&nbsp;</a></li>
+        <li><a href="admin.html">Адміністрація&nbsp;&nbsp;</a></li>
+        <li><a href="brigade.html">Бригада&nbsp;&nbsp;</a></li>
+        <li><a href="plane.html">Літак&nbsp;&nbsp;</a></li>
+        <li><a href="vehicleInspection.html">Техогляд&nbsp;&nbsp;</a></li>
+        <li><a href="flight.html">Рейс&nbsp;&nbsp;</a></li>
+        <li><a href="schedule.html">Розклад&nbsp;&nbsp;</a></li>
+        <li><a href="delayedFlight.html">Затриманий рейс&nbsp;&nbsp;</a></li>
+        <li><a href="cancelledFlight.html">Скасований рейс&nbsp;&nbsp;</a></li>
+        <li><a href="passenger.html">Пасажир&nbsp;&nbsp;</a></li>
+        <li><a href="passengerHasSchedule.html">Пасажир/розклад&nbsp;&nbsp;</a></li>
+        <li><a href="planeHasFlight.html">Літак/рейс&nbsp;&nbsp;</a></li>
+        <li><a href="seats.html">Місце&nbsp;&nbsp;</a></li>
+        <li><a href="seatsHasSchedule.html">Місце/розклад&nbsp;&nbsp;</a></li>
+        <li><a href="returnedTicket.html" role="tab" data-toggle="tab">Повернений квиток&nbsp;&nbsp;</a></li>
+    </ul>
+    <!-- Содержимое вкладок -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="vkladka1">
+            <!--<button type = 'button' id="createWorker" class="create" style="display: block; margin: 0 auto;"-->
+            <!--data-toggle="modal" data-target="#addModal"-->
+            <!--ng-click="app.start_insert_entry()">Додати-->
+            <!--</button>-->
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>ІД</th>
+                    <th>Ім'я</th>
+                    <th>Прізвище</th>
+                    <th>По-батькові</th>
+                    <th>Бригада</th>
+                    <th>Досвід</th>
+                    <th>Стать</th>
+                    <th>Вік</th>
+                    <th>Має діти</th>
+                    <th>Кількість дітей</th>
+                    <th>Зарплата</th>
+                    <th>Відділ</th>
+                    <th>Переглянути</th>
+                    <th>Оновити</th>
+                    <th>Видалити</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in worker">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.surname}}</td>
+                    <td>{{item.middleName}}</td>
+                    <td>{{item.brigade.name}}</td>
+                    <td>{{item.expierence}}</td>
+                    <td>{{item.gender}}</td>
+                    <td>{{item.age}}</td>
+                    <td>{{item.shasChildren}}</td>
+                    <td>{{item.numberOfChildren}}</td>
+                    <td>{{item.salary}}</td>
+                    <td>{{item.department.name}}</td>
+                    <td>
+                        <button id="r{{item.id}}" class="read" style="display: block; margin: 0 auto;"><img
+                                src="http://images.clipartpanda.com/open-clipart-pT5aRaATB.svg" width="25" height="25">
+                        </button>
+                    </td>
+                    <td>
+                        <button id="u{{item.id}}" class="update" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn3.iconfinder.com/data/icons/transfers/100/239342-reload_refresh-512.png"
+                                width="25" height="25"></button>
+                    </td>
+                    <td>
+                        <button id="d{{item.id}}" class="delete" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn.iconscout.com/public/images/icon/free/png-512/bin-delete-remove-trash-3311da396c8607c4-512x512.png"
+                                width="25" height="25"></button>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+
+        <div role="tabpanel" class="tab-pane" id="vkladka2">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+
+                    <th>ІД</th>
+                    <th>Назва</th>
+                    <th>Переглянути</th>
+                    <th>Оновити</th>
+                    <th>Видалити</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in department">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>
+                        <button id="r{{item.id}}" class="read" style="display: block; margin: 0 auto;"><img
+                                src="http://images.clipartpanda.com/open-clipart-pT5aRaATB.svg" width="25" height="25">
+                        </button>
+                    </td>
+                    <td>
+                        <button id="u{{item.id}}" class="update" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn3.iconfinder.com/data/icons/transfers/100/239342-reload_refresh-512.png"
+                                width="25" height="25"></button>
+                    </td>
+                    <td>
+                        <button id="d{{item.id}}" class="delete" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn.iconscout.com/public/images/icon/free/png-512/bin-delete-remove-trash-3311da396c8607c4-512x512.png"
+                                width="25" height="25"></button>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+        <div role="tabpanel" class="tab-pane" id="vkladka3">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+
+                    <th>ІД</th>
+                    <th>Рік</th>
+                    <th>Пройдено</th>
+                    <th>Працівник</th>
+                    <th>Переглянути</th>
+                    <th>Оновити</th>
+                    <th>Видалити</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in medicalExam">
+                    <td>{{item.id}}</td>
+                    <td>{{item.year}}</td>
+                    <td>{{item.shasPassed}}</td>
+                    <td>{{item.worker.name}}</td>
+                    <td>
+                        <button id="r{{item.id}}" class="read" style="display: block; margin: 0 auto;"><img
+                                src="http://images.clipartpanda.com/open-clipart-pT5aRaATB.svg" width="25" height="25">
+                        </button>
+                    </td>
+                    <td>
+                        <button id="u{{item.id}}" class="update" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn3.iconfinder.com/data/icons/transfers/100/239342-reload_refresh-512.png"
+                                width="25" height="25"></button>
+                    </td>
+                    <td>
+                        <button id="d{{item.id}}" class="delete" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn.iconscout.com/public/images/icon/free/png-512/bin-delete-remove-trash-3311da396c8607c4-512x512.png"
+                                width="25" height="25"></button>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="vkladka4">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>ІД</th>
+                    <th>Ім'я</th>
+                    <th>Прізвище</th>
+                    <th>По-батькові</th>
+                    <th>Посада</th>
+                    <th>Відділ</th>
+                    <th>Переглянути</th>
+                    <th>Оновити</th>
+                    <th>Видалити</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in admin">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.surname}}</td>
+                    <td>{{item.middleName}}</td>
+                    <td>{{item.position}}</td>
+                    <td>{{item.department}}</td>
+                    <td>
+                        <button id="r{{item.id}}" class="read" style="display: block; margin: 0 auto;"><img
+                                src="http://images.clipartpanda.com/open-clipart-pT5aRaATB.svg" width="25" height="25">
+                        </button>
+                    </td>
+                    <td>
+                        <button id="u{{item.id}}" class="update" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn3.iconfinder.com/data/icons/transfers/100/239342-reload_refresh-512.png"
+                                width="25" height="25"></button>
+                    </td>
+                    <td>
+                        <button id="d{{item.id}}" class="delete" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn.iconscout.com/public/images/icon/free/png-512/bin-delete-remove-trash-3311da396c8607c4-512x512.png"
+                                width="25" height="25"></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="vkladka5">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+
+                    <th>ІД</th>
+                    <th>Літак</th>
+                    <th>Назва</th>
+                    <th>Рейс</th>
+                    <th>Переглянути</th>
+                    <th>Оновити</th>
+                    <th>Видалити</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in brigade">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.plane.name}}</td>
+                    <td>"{{item.flight.startingPoint}}" - "{{item.flight.finalPoint}}"</td>
+                    <td>
+                        <button id="r{{item.id}}" class="read" style="display: block; margin: 0 auto;"><img
+                                src="http://images.clipartpanda.com/open-clipart-pT5aRaATB.svg" width="25" height="25">
+                        </button>
+                    </td>
+                    <td>
+                        <button id="u{{item.id}}" class="update" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn3.iconfinder.com/data/icons/transfers/100/239342-reload_refresh-512.png"
+                                width="25" height="25"></button>
+                    </td>
+                    <td>
+                        <button id="d{{item.id}}" class="delete" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn.iconscout.com/public/images/icon/free/png-512/bin-delete-remove-trash-3311da396c8607c4-512x512.png"
+                                width="25" height="25"></button>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="vkladka6">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+
+                    <th>ІД</th>
+                    <th>Назва</th>
+                    <th>Кількість ремонтів</th>
+                    <th>Вік</th>
+                    <th>Кількість здійснений рейсів</th>
+                    <th>Статус</th>
+                    <th>Кількість місць</th>
+                    <th>Час прибуття</th>
+                    <th>Переглянути</th>
+                    <th>Оновити</th>
+                    <th>Видалити</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in plane">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.numberOfRepairs}}</td>
+                    <td>{{item.age}}</td>
+                    <td>{{item.numberOfFlights}}</td>
+                    <td>{{item.status}}</td>
+                    <td>{{item.numberOfSeats}}</td>
+                    <td>{{item.timeOfArrive}}</td>
+                    <td>
+                        <button id="r{{item.id}}" class="read" style="display: block; margin: 0 auto;"><img
+                                src="http://images.clipartpanda.com/open-clipart-pT5aRaATB.svg" width="25" height="25">
+                        </button>
+                    </td>
+                    <td>
+                        <button id="u{{item.id}}" class="update" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn3.iconfinder.com/data/icons/transfers/100/239342-reload_refresh-512.png"
+                                width="25" height="25"></button>
+                    </td>
+                    <td>
+                        <button id="d{{item.id}}" class="delete" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn.iconscout.com/public/images/icon/free/png-512/bin-delete-remove-trash-3311da396c8607c4-512x512.png"
+                                width="25" height="25"></button>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="vkladka7">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+
+                    <th>ІД</th>
+                    <th>Дата</th>
+                    <th>Літак</th>
+                    <th>Вид</th>
+                    <th>Кількість рейсів</th>
+                    <th>Переглянути</th>
+                    <th>Оновити</th>
+                    <th>Видалити</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in vehicleInspection">
+                    <td>{{item.id}}</td>
+                    <td>{{item.date}}</td>
+                    <td>{{item.plane.name}}</td>
+                    <td>{{item.type}}</td>
+                    <td>{{item.numberOfFlights}}</td>
+                    <td>
+                        <button id="r{{item.id}}" class="read" style="display: block; margin: 0 auto;"><img
+                                src="http://images.clipartpanda.com/open-clipart-pT5aRaATB.svg" width="25" height="25">
+                        </button>
+                    </td>
+                    <td>
+                        <button id="u{{item.id}}" class="update" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn3.iconfinder.com/data/icons/transfers/100/239342-reload_refresh-512.png"
+                                width="25" height="25"></button>
+                    </td>
+                    <td>
+                        <button id="d{{item.id}}" class="delete" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn.iconscout.com/public/images/icon/free/png-512/bin-delete-remove-trash-3311da396c8607c4-512x512.png"
+                                width="25" height="25"></button>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="vkladka8">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+
+                    <th>ІД</th>
+                    <th>Початковий пункт</th>
+                    <th>Кінцевий пункт</th>
+                    <th>Пункт пересадки</th>
+                    <th>Ціна квитка</th>
+                    <th>Тип</th>
+                    <th>Час перельоту</th>
+                    <th>Переглянути</th>
+                    <th>Оновити</th>
+                    <th>Видалити</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in flight">
+                    <td>{{item.id}}</td>
+                    <td>{{item.startingPoint}}</td>
+                    <td>{{item.finalPoint}}</td>
+                    <td>{{item.transferPoint}}</td>
+                    <td>{{item.ticketPrice}}</td>
+                    <td>{{item.type}}</td>
+                    <td>{{item.time}}</td>
+                    <td>
+                        <button id="r{{item.id}}" class="read" style="display: block; margin: 0 auto;"><img
+                                src="http://images.clipartpanda.com/open-clipart-pT5aRaATB.svg" width="25" height="25">
+                        </button>
+                    </td>
+                    <td>
+                        <button id="u{{item.id}}" class="update" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn3.iconfinder.com/data/icons/transfers/100/239342-reload_refresh-512.png"
+                                width="25" height="25"></button>
+                    </td>
+                    <td>
+                        <button id="d{{item.id}}" class="delete" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn.iconscout.com/public/images/icon/free/png-512/bin-delete-remove-trash-3311da396c8607c4-512x512.png"
+                                width="25" height="25"></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div role="tabpanel" class="tab-pane" id="vkladka9">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+
+                    <th>ІД</th>
+                    <th>Рейс</th>
+                    <th>День відльоту</th>
+                    <th>Час відльоту</th>
+                    <th>День прибуття</th>
+                    <th>Час прибуття</th>
+                    <th>Кількість вільних місць</th>
+                    <th>Тип літака</th>
+                    <th>Кількість проданих квитків</th>
+                    <th>Переглянути</th>
+                    <th>Оновити</th>
+                    <th>Видалити</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in schedule">
+                    <td>{{item.id}}</td>
+                    <td>"{{item.flight.startingPoint}}" - "{{item.flight.finalPoint}}"</td>
+                    <td>{{item.dayOfDeparture}}</td>
+                    <td>{{item.dayOfArrive}}</td>
+                    <td>{{item.timeOfDeparture}}</td>
+                    <td>{{item.timeOfArrive}}</td>
+                    <td>{{item.numberOfUnusedSeats}}</td>
+                    <td>{{item.numberOfSoldTickets}}</td>
+                    <td>{{item.planeType}}</td>
+                    <td>
+                        <button id="r{{item.id}}" class="read" style="display: block; margin: 0 auto;"><img
+                                src="http://images.clipartpanda.com/open-clipart-pT5aRaATB.svg" width="25" height="25">
+                        </button>
+                    </td>
+                    <td>
+                        <button id="u{{item.id}}" class="update" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn3.iconfinder.com/data/icons/transfers/100/239342-reload_refresh-512.png"
+                                width="25" height="25"></button>
+                    </td>
+                    <td>
+                        <button id="d{{item.id}}" class="delete" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn.iconscout.com/public/images/icon/free/png-512/bin-delete-remove-trash-3311da396c8607c4-512x512.png"
+                                width="25" height="25"></button>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="vkladka10">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+
+                    <th>ІД</th>
+                    <th>Причина</th>
+                    <th>Розклад</th>
+                    <th>Кількість повернених квитків</th>
+                    <th>Переглянути</th>
+                    <th>Оновити</th>
+                    <th>Видалити</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in delayedFlight">
+                    <td>{{item.id}}</td>
+                    <td>{{item.reason}}</td>
+                    <td>"{{item.schedule.flight.startingPoint}}" - "{{item.schedule.flight.finalPoint}}"</td>
+                    <td>{{item.numberOfReturns}}</td>
+                    <td>
+                        <button id="r{{item.id}}" class="read" style="display: block; margin: 0 auto;"><img
+                                src="http://images.clipartpanda.com/open-clipart-pT5aRaATB.svg" width="25" height="25">
+                        </button>
+                    </td>
+                    <td>
+                        <button id="u{{item.id}}" class="update" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn3.iconfinder.com/data/icons/transfers/100/239342-reload_refresh-512.png"
+                                width="25" height="25"></button>
+                    </td>
+                    <td>
+                        <button id="d{{item.id}}" class="delete" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn.iconscout.com/public/images/icon/free/png-512/bin-delete-remove-trash-3311da396c8607c4-512x512.png"
+                                width="25" height="25"></button>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="vkladka11">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+
+                    <th>ІД</th>
+                    <th>Розклад</th>
+                    <th>Переглянути</th>
+                    <th>Оновити</th>
+                    <th>Видалити</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in cancelledFlight">
+                    <td>{{item.id}}</td>
+                    <td>"{{item.schedule.flight.startingPoint}}" - "{{item.schedule.flight.finalPoint}}"</td>
+                    <td>
+                        <button id="r{{item.id}}" class="read" style="display: block; margin: 0 auto;"><img
+                                src="http://images.clipartpanda.com/open-clipart-pT5aRaATB.svg" width="25" height="25">
+                        </button>
+                    </td>
+                    <td>
+                        <button id="u{{item.id}}" class="update" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn3.iconfinder.com/data/icons/transfers/100/239342-reload_refresh-512.png"
+                                width="25" height="25"></button>
+                    </td>
+                    <td>
+                        <button id="d{{item.id}}" class="delete" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn.iconscout.com/public/images/icon/free/png-512/bin-delete-remove-trash-3311da396c8607c4-512x512.png"
+                                width="25" height="25"></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div role="tabpanel" class="tab-pane" id="vkladka12">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+
+                    <th>ІД</th>
+                    <th>Ім'я</th>
+                    <th>Прізвище</th>
+                    <th>По-батькові</th>
+                    <th>Стать</th>
+                    <th>Вік</th>
+                    <th>Переглянути</th>
+                    <th>Оновити</th>
+                    <th>Видалити</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in passenger">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.surname}}</td>
+                    <td>{{item.middleName}}</td>
+                    <td>{{item.gender}}</td>
+                    <td>{{item.age}}</td>
+                    <td>
+                        <button id="r{{item.id}}" class="read" style="display: block; margin: 0 auto;"><img
+                                src="http://images.clipartpanda.com/open-clipart-pT5aRaATB.svg" width="25" height="25">
+                        </button>
+                    </td>
+                    <td>
+                        <button id="u{{item.id}}" class="update" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn3.iconfinder.com/data/icons/transfers/100/239342-reload_refresh-512.png"
+                                width="25" height="25"></button>
+                    </td>
+                    <td>
+                        <button id="d{{item.id}}" class="delete" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn.iconscout.com/public/images/icon/free/png-512/bin-delete-remove-trash-3311da396c8607c4-512x512.png"
+                                width="25" height="25"></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div role="tabpanel" class="tab-pane" id="vkladka13">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+
+                    <th>IД</th>
+                    <th>Пасажир</th>
+                    <th>Розклад</th>
+                    <th>Має багаж</th>
+                    <th>Переглянути</th>
+                    <th>Оновити</th>
+                    <th>Видалити</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in passengerHasSchedule">
+                    <td>{{item.id}}</td>
+                    <td>{{item.passenger.name}} {{item.passenger.surname}}</td>
+                    <td>"{{item.schedule.flight.startingPoint}}" - "{{item.schedule.flight.finalPoint}}"</td>
+                    <td>{{item.shasLuggage}}</td>
+                    <td>
+                        <button id="r{{item.id}}" class="read" style="display: block; margin: 0 auto;"><img
+                                src="http://images.clipartpanda.com/open-clipart-pT5aRaATB.svg" width="25" height="25">
+                        </button>
+                    </td>
+                    <td>
+                        <button id="u{{item.id}}" class="update" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn3.iconfinder.com/data/icons/transfers/100/239342-reload_refresh-512.png"
+                                width="25" height="25"></button>
+                    </td>
+                    <td>
+                        <button id="d{{item.id}}" class="delete" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn.iconscout.com/public/images/icon/free/png-512/bin-delete-remove-trash-3311da396c8607c4-512x512.png"
+                                width="25" height="25"></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div role="tabpanel" class="tab-pane" id="vkladka15">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+
+                    <th>Місце</th>
+                    <th>Hомер</th>
+                    <th>Літак</th>
+                    <th>Переглянути</th>
+                    <th>Оновити</th>
+                    <th>Видалити</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in seats">
+                    <td>{{item.id}}</td>
+                    <td>{{item.number}}</td>
+                    <td>{{item.plane.name}}</td>
+                    <td>
+                        <button id="r{{item.id}}" class="read" style="display: block; margin: 0 auto;"><img
+                                src="http://images.clipartpanda.com/open-clipart-pT5aRaATB.svg" width="25" height="25">
+                        </button>
+                    </td>
+                    <td>
+                        <button id="u{{item.id}}" class="update" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn3.iconfinder.com/data/icons/transfers/100/239342-reload_refresh-512.png"
+                                width="25" height="25"></button>
+                    </td>
+                    <td>
+                        <button id="d{{item.id}}" class="delete" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn.iconscout.com/public/images/icon/free/png-512/bin-delete-remove-trash-3311da396c8607c4-512x512.png"
+                                width="25" height="25"></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="vkladka14">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+
+                    <th>IД</th>
+                    <th>Літак</th>
+                    <th>Рейс</th>
+                    <th>Переглянути</th>
+                    <th>Оновити</th>
+                    <th>Видалити</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in planeHasFlight">
+                    <td>{{item.id}}</td>
+                    <td>{{item.plane.name}}</td>
+                    <td>"{{item.flight.startingPoint}}" - "{{item.flight.finalPoint}}"</td>
+                    <td>
+                        <button id="r{{item.id}}" class="read" style="display: block; margin: 0 auto;"><img
+                                src="http://images.clipartpanda.com/open-clipart-pT5aRaATB.svg" width="25" height="25">
+                        </button>
+                    </td>
+                    <td>
+                        <button id="u{{item.id}}" class="update" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn3.iconfinder.com/data/icons/transfers/100/239342-reload_refresh-512.png"
+                                width="25" height="25"></button>
+                    </td>
+                    <td>
+                        <button id="d{{item.id}}" class="delete" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn.iconscout.com/public/images/icon/free/png-512/bin-delete-remove-trash-3311da396c8607c4-512x512.png"
+                                width="25" height="25"></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div role="tabpanel" class="tab-pane" id="vkladka16">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+
+                    <th>ІД</th>
+                    <th>Місце</th>
+                    <th>Розклад</th>
+                    <th>Зарезервовано</th>
+                    <th>Переглянути</th>
+                    <th>Оновити</th>
+                    <th>Видалити</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in seatsHasSchedule">
+                    <td>{{item.id}}</td>
+                    <td>{{item.seat.number}}</td>
+                    <td>"{{item.schedule.flight.startingPoint}}" - "{{item.schedule.flight.finalPoint}}"</td>
+                    <td>{{item.sbooked}}</td>
+                    <td>
+                        <button id="r{{item.id}}" class="read" style="display: block; margin: 0 auto;"><img
+                                src="http://images.clipartpanda.com/open-clipart-pT5aRaATB.svg" width="25" height="25">
+                        </button>
+                    </td>
+                    <td>
+                        <button id="u{{item.id}}" class="update" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn3.iconfinder.com/data/icons/transfers/100/239342-reload_refresh-512.png"
+                                width="25" height="25"></button>
+                    </td>
+                    <td>
+                        <button id="d{{item.id}}" class="delete" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn.iconscout.com/public/images/icon/free/png-512/bin-delete-remove-trash-3311da396c8607c4-512x512.png"
+                                width="25" height="25"></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div role="tabpanel" class="tab-pane" id="vkladka17">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>ІД</th>
+                    <th>Пасажир</th>
+                    <th>Розклад</th>
+                    <th>Переглянути</th>
+                    <th>Оновити</th>
+                    <th>Видалити</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in returnedTicket">
+                    <td>{{item.id}}</td>
+                    <td>{{item.passenger.name}} {{item.passenger.surname}}</td>
+                    <td>"{{item.schedule.flight.startingPoint}}" - "{{item.schedule.flight.finalPoint}}"</td>
+                    <td>
+                        <button id="r{{item.id}}" class="read" style="display: block; margin: 0 auto;"><img
+                                src="http://images.clipartpanda.com/open-clipart-pT5aRaATB.svg" width="25" height="25">
+                        </button>
+                    </td>
+                    <td>
+                        <button id="u{{item.id}}" class="update" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn3.iconfinder.com/data/icons/transfers/100/239342-reload_refresh-512.png"
+                                width="25" height="25"></button>
+                    </td>
+                    <td>
+                        <button id="d{{item.id}}" class="delete" style="display: block; margin: 0 auto;"><img
+                                src="https://cdn.iconscout.com/public/images/icon/free/png-512/bin-delete-remove-trash-3311da396c8607c4-512x512.png"
+                                width="25" height="25"></button>
+                    </td>
+                </tr>
+                </tbody>
+
+
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>

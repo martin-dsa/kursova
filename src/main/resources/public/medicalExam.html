@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Інформаційна система аеропорту</title>
+    <link rel="icon"
+          href="http://files.softicons.com/download/web-icons/awt-travel-blue-icons-by-awt-media/png/200x200/AWT-Plane.png">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/medicalExam.js"></script>
+
+</head>
+<body ng-app="airport" ng-controller="AppCtrl as ctrl">
+
+<ul class="nav nav-tabs" role="tablist">
+    <li><a href="worker.html">Працівники&nbsp;&nbsp;</a></li>
+    <li><a href="department.html">Відділи&nbsp;&nbsp;</a></li>
+    <li><a href="medicalExam.html">Медичні обстеження&nbsp;&nbsp;</a></li>
+    <li><a href="admin.html">Адміністрація&nbsp;&nbsp;</a></li>
+    <li><a href="brigade.html">Бригади&nbsp;&nbsp;</a></li>
+    <li><a href="plane.html">Літаки&nbsp;&nbsp;</a></li>
+    <li><a href="vehicleInspection.html">Техогляди&nbsp;&nbsp;</a></li>
+    <li><a href="flight.html">Рейси&nbsp;&nbsp;</a></li>
+    <li><a href="schedule.html">Розклад&nbsp;&nbsp;</a></li>
+    <li><a href="delayedFlight.html">Затримані рейси&nbsp;&nbsp;</a></li>
+    <li><a href="cancelledFlight.html">Скасовані рейси&nbsp;&nbsp;</a></li>
+    <li><a href="passenger.html">Пасажири&nbsp;&nbsp;</a></li>
+    <li><a href="passengerHasSchedule.html">Пасажир/розклад&nbsp;&nbsp;</a></li>
+    <li><a href="planeHasFlight.html">Літак/рейс&nbsp;&nbsp;</a></li>
+    <li><a href="seats.html">Місця&nbsp;&nbsp;</a></li>
+    <li><a href="seatsHasSchedule.html">Місце/розклад&nbsp;&nbsp;</a></li>
+    <li><a href="returnedTicket.html">Повернені квитки&nbsp;&nbsp;</a></li>
+</ul>
+<div class="container" style="margin-top: 30px">
+    <div class="row">
+        <div class="col-md12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Медичні обстеження</div>
+                <div class="panel-body">
+                    <button type='button' id="createWorker" class="create" style="display: block; margin: 0 auto;"
+                            data-toggle="modal" data-target="#addModal" ng-click="ctrl.setOptions('cr_dep')">Додати
+                    </button>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Рік</th>
+                            <th>Пройдено</th>
+                            <th>Працівник</th>
+                            <th>Оновити</th>
+                            <th>Видалити</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in medicalExam">
+                            <td>{{item.year}}</td>
+                            <td>{{item.shasPassed}}</td>
+                            <td>{{item.worker.name}}</td>
+                            <td>
+                                <button id="u{{item.id}}" class="update" style="display: block; margin: 0 auto;"><img
+                                        src="https://cdn3.iconfinder.com/data/icons/transfers/100/239342-reload_refresh-512.png"
+                                        width="25" height="25" data-toggle="modal" data-target="#updateModal"  ng-click="ctrl.setId(item.id)"
+                                ></button>
+                            </td>
+                            <td>
+                                <button id="d{{item.id}}" class="delete" style="display: block; margin: 0 auto;"><img
+                                        src="https://cdn.iconscout.com/public/images/icon/free/png-512/bin-delete-remove-trash-3311da396c8607c4-512x512.png"
+                                        width="25" height="25" data-toggle="modal" data-target="#deleteModal"  ng-click="ctrl.setId(item.id)"
+                                ></button>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--create-->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="addModalLabel">Додавання запису</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Закрити">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="column left">Рік</div>
+                    <div class="column right"><input class="form-control" type="number" min="2000" max="2018"
+                                                     value="0" id="cr_year">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column left">Пройдено</div>
+                    <div class="column right">
+                        <input type="checkbox" class="form-check-input" name="pass" id="cr_pass" value="passed" checked>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column left">Працівник</div>
+                    <div class="column right"><select id="cr_worker"></select>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal">Скасувати</button>
+                <button class="addButton" type="button" ng-click="ctrl.create()">Додати
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--update-->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="updateModalLabel">Редагування запису</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Закрити">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="column left">Рік</div>
+                    <div class="column right"><input class="form-control" type="number" min="2000" max="2018"
+                                                     value="0" id="upd_year">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column left">Пройдено</div>
+                    <div class="column right">
+                        <input type="checkbox" class="form-check-input" name="pass" id="upd_pass" value="passed" checked>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column left">Працівник</div>
+                    <div class="column right"><select id="upd_worker"></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal">Скасувати</button>
+                <button class="addButton" type="button" ng-click="ctrl.update()">Додати
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--delete-->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="deleteModalLabel">Видалення запису</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Закрити">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <h5>Ви дійсно хочете видалити даний запис?</h5>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal">Скасувати</button>
+                <button class="addButton" type="button" ng-click="ctrl.delete()">Видалити
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
