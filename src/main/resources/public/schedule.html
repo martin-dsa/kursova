@@ -41,14 +41,14 @@
     <li><a href="seatsHasSchedule.html">Місце/розклад&nbsp;&nbsp;</a></li>
     <li><a href="returnedTicket.html">Повернені квитки&nbsp;&nbsp;</a></li>
 </ul>
-<div class="container" style="margin-top: 30px" >
+<div class="container" style="margin-top: 30px">
     <div class="row">
         <div class="col-md12">
             <div class="panel panel-default">
                 <div class="panel-heading">Розклад</div>
                 <div class="panel-body">
                     <button type='button' id="createWorker" class="create" style="display: block; margin: 0 auto;"
-                            data-toggle="modal" data-target="#addModal" ng-click="ctrl.setOptions('cr_dep')">Додати
+                            data-toggle="modal" data-target="#addModal" ng-click="ctrl.setOptions('cr_flight')">Додати
                     </button>
                     <table class="table table-bordered">
                         <thead>
@@ -59,7 +59,6 @@
                             <th>День прибуття</th>
                             <th>Час прибуття</th>
                             <th>Кількість вільних місць</th>
-                            <th>Тип літака</th>
                             <th>Кількість проданих квитків</th>
                             <th>Оновити</th>
                             <th>Видалити</th>
@@ -70,22 +69,24 @@
                         <tr ng-repeat="item in schedule">
                             <td>"{{item.flight.startingPoint}}" - "{{item.flight.finalPoint}}"</td>
                             <td>{{item.dayOfDeparture}}</td>
-                            <td>{{item.dayOfArrive}}</td>
                             <td>{{item.timeOfDeparture}}</td>
+                            <td>{{item.dayOfArrive}}</td>
+
                             <td>{{item.timeOfArrive}}</td>
                             <td>{{item.numberOfUnusedSeats}}</td>
                             <td>{{item.numberOfSoldTickets}}</td>
-                            <td>{{item.planeType}}</td>
                             <td>
                                 <button id="u{{item.id}}" class="update" style="display: block; margin: 0 auto;"><img
                                         src="https://cdn3.iconfinder.com/data/icons/transfers/100/239342-reload_refresh-512.png"
-                                        width="25" height="25" data-toggle="modal" data-target="#updateModal"  ng-click="ctrl.setId(item.id)"
+                                        width="25" height="25" data-toggle="modal" data-target="#updateModal"
+                                        ng-click="ctrl.setId(item.id);ctrl.setOptions('upd_flight')"
                                 ></button>
                             </td>
                             <td>
                                 <button id="d{{item.id}}" class="delete" style="display: block; margin: 0 auto;"><img
                                         src="https://cdn.iconscout.com/public/images/icon/free/png-512/bin-delete-remove-trash-3311da396c8607c4-512x512.png"
-                                        width="25" height="25" data-toggle="modal" data-target="#deleteModal"  ng-click="ctrl.setId(item.id)"
+                                        width="25" height="25" data-toggle="modal" data-target="#deleteModal"
+                                        ng-click="ctrl.setId(item.id)"
                                 ></button>
                             </td>
                         </tr>
@@ -190,7 +191,7 @@
 
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal">Скасувати</button>
-                <button class="addButton" type="button" ng-click="ctrl.create()">Додати
+                <button class="addButton" type="button" ng-click="create()">Додати
                 </button>
             </div>
         </div>

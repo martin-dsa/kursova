@@ -9,7 +9,7 @@ app.controller("AppCtrl", function ($scope, $http) {
     let id;
     this.setOptions = function (sel) {
         console.log('set')
-        $http.get('/api/schedule').then(function (response) {
+        $http.get('/api/flight').then(function (response) {
             let data = response.data;
             let selector = document.getElementById(sel);
             $(selector).empty();
@@ -41,7 +41,7 @@ app.controller("AppCtrl", function ($scope, $http) {
 
 
         $http.get('/api/passenger/insert?flight=' + name + '&dayOfDeparture=' + nmrrep + '&timeOfDeparture=' +
-            q + '&dayOfArrive=' + w + '&timeOfArrive=' + e+'&numberOfUnusedSeats='+r+'&ty').then(function (response) {
+            q + '&dayOfArrive=' + w + '&timeOfArrive=' + e+'&numberOfUnusedSeats='+r+'&planeType='+t+'&numberOfSoldTickets'+y).then(function (response) {
             window.location.reload();
         });
     };
