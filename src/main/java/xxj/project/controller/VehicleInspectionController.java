@@ -32,9 +32,9 @@ public class VehicleInspectionController {
     }
 
     @RequestMapping("/insert")
-    public VehicleInspection insert(@RequestParam LocalDate date, int plane, String type, int numberOfFlights) {
+    public VehicleInspection insert(@RequestParam String date, int plane, String type, int numberOfFlights) {
         Plane plane1 = planeRep.findById(plane).get();
-        return vehicleInspectionRepository.save(new VehicleInspection(date, plane1, type, numberOfFlights));
+        return vehicleInspectionRepository.save(new VehicleInspection(LocalDate.parse(date), plane1, type, numberOfFlights));
     }
 
     @RequestMapping("/update")
