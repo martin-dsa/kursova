@@ -1,9 +1,9 @@
 var app = angular.module("airport", []);
 
 app.controller("AppCtrl", function ($scope, $http) {
-    $scope.flight = [];
+    $scope.worker = [];
     $http.get('/api/worker').then(function (response) {
-        $scope.flight = response.data;
+        $scope.worker = response.data;
         console.log(response);
     });
 
