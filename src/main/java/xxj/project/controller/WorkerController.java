@@ -39,7 +39,7 @@ public class WorkerController {
     }
 
     @RequestMapping("/update")
-    public Worker update(@RequestParam int id, String name, String surname, String middleName, int brigade, int experience, String gender, int age, boolean hasChildren, Integer numberOfChildren, int salary, int department) {
+    public Worker update(@RequestParam int id, String name, String surname, String middleName, int brigade, int experience, String gender, int age, Integer numberOfChildren, int salary, int department) {
         Worker worker = workerRepository.findById(id).get();
         Brigade brigade1 = brigadeRep.findById(brigade).get();
         Department department1 = departmentRep.findById(department).get();
@@ -49,7 +49,7 @@ public class WorkerController {
         worker.setMiddleName(middleName);
         worker.setBrigade(brigade1);
         worker.setDepartment(department1);
-        worker.setHasChildren(hasChildren);
+
         worker.setNumberOfChildren(numberOfChildren);
         worker.setAge(age);
         worker.setGender(gender);
